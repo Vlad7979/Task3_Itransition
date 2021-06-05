@@ -105,10 +105,10 @@ public class Main {
             }
         }
         if (mapa.get(pcMove)) {
-            System.out.println("You lose!");
+            System.out.println("You win!");
         }
         else {
-            System.out.println("You win!");
+            System.out.println("You lose!");
         }
     }
 }
