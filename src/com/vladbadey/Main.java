@@ -8,19 +8,19 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
-    class A {
-
-    }
-
     static String[] arguments;
     static Map<Integer, String> map = new HashMap<>();
     static int userMove;
     public static void main(String[] args) throws NoSuchAlgorithmException {
         arguments = args;
+        if (!isArgsUnique(args)) {
+            System.out.println("You enter duplicates!");
+            return;
+        }
         if(args.length >= 3 && !(args.length % 2 == 0)){
-            System.out.println("HMAC:");
+            System.out.print("HMAC:");
             GenerateHMAC hmacAndKey = new GenerateHMAC(args);
-            System.out.println(hmacAndKey.bytesToHex(hmacAndKey.generateHMAC()));
+            System.out.println(hmacAndKey.bytesToHex(hmacAndKey.generateHMAC()).toUpperCase());
             menu();
             if (userMove == 0) {
                 return;
@@ -34,7 +34,7 @@ public class Main {
                 System.out.println("Draws!");
             }
             GenerateHMAC hmacAndKey2 = new GenerateHMAC(args);
-            System.out.println("HMAC key: " + hmacAndKey2.bytesToHex(hmacAndKey2.generateHMAC()));
+            System.out.println("HMAC key: " + hmacAndKey2.bytesToHex(hmacAndKey2.generateHMAC()).toUpperCase());
         } else if(args.length % 2 == 0 && args.length != 0){
             System.out.println("Enter an odd amount.");
         } else {
@@ -42,6 +42,16 @@ public class Main {
             System.out.println("Example: java *.java Rock, Paper, Shotgun or Rock, Paper, Shotgun, Lizard, Spock");
         }
 
+    }
+
+    public static boolean isArgsUnique(String[] args) {
+        Set<String> set = new HashSet<>();
+        for (String s : args) {
+            if (!set.add(s)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void menu() {
